@@ -1,0 +1,21 @@
+{
+  "name": "DMSsequelize",
+  "version": "1.0.0",
+  "description": "The system manages documents, users and user roles. Each document defines access rights; the document defines which roles can access it. Also, each document specifies the date it was published.",
+  "main": "index.js",
+  "scripts": {
+    "test": "./node_modules/.bin/jasmine-node --captureExceptions documentManagerSpec.js --forceexit"
+  },
+  "author": "Susan Adelokiki",
+  "license": "ISC",
+  "dependencies": {
+    "express": "^4.13.3",
+    "fs": "0.0.2",
+    "pg": "^4.4.1",
+    "pg-hstore": "^2.3.2",
+    "sequelize": "^3.9.0"
+  },
+  "devDependencies": {
+    "jasmine-node": "^1.14.5"
+  }
+}
