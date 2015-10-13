@@ -19,7 +19,7 @@ module.exports = function(sequelize, DataTypes) {
           onDelete: 'SET NULL',
           onUpdate: 'CASCADE'
         });
-      },
+      }
     }
   });
   return Document;
