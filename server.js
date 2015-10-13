@@ -4,7 +4,6 @@ var app = require('express')();
 var model = require('./schema');
 var Sequelize = require('sequelize');
 
-
 model.sequelize.sync({
   force: true
 }).then(function() {
