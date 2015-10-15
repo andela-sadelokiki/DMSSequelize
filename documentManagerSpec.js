@@ -79,9 +79,10 @@ describe('User', function() {
       model.users.create({
         firstname: 'bolu',
         lastname: 'johnson',
-        UserRole: 'attendant'
+        UserRole: 'management'
       }).then(function() {
         model.users.findAll().then(function(list) {
+          console.log('show list of users', list);
           for (var i = 0; i < list.length; i++) {
             users.push(list[i].dataValues)
           }
@@ -128,9 +129,13 @@ describe('Role', function() {
   });
 
   it('should validate that all roles are returned when getAllRoles is called', function(done) {
-    model.roles.findAll().then(function(result) {
-      expect(result.length).toBe(1);
-      done();
+    model.roles.create({
+      title: 'academic leader'
+    }).then(function() {
+      model.roles.findAll().then(function(result) {
+        expect(result.length).toBe(2);
+        done();
+      });
     });
   });
 
@@ -142,7 +147,7 @@ describe('Document', function() {
     model.documents.destroy({
       where: {}
     }).then(function() {
-      documentManager.createDocument('Contract', 'Junior Developer', 'Peter', 'Thomas').then(function(result) {
+      documentManager.createDocument('Contract', 'Junior Developer').then(function(result) {
         console.log('NEW DOCUMENT', result);
         done();
       });
@@ -156,11 +161,7 @@ describe('Document', function() {
       model.roles.destroy({
         where: {}
       }).then(function() {
-        model.users.destroy({
-          where: {}
-        }).then(function() {
-          done();
-        });
+        done();
       });
     });
   });
@@ -171,15 +172,15 @@ describe('Document', function() {
     }).then(function(result) {
       console.log('i found it!', result);
       expect(result.dataValues.createdOn).toBeDefined();
-      expect(result.dataValues.createdOn).toBe('13-9-2015');
+      expect(result.dataValues.createdOn).toBe('15-9-2015');
       done();
     });
   });
 
   it('should  validate that all documents are returned, limited by a specified number, when getAllDocuments is called.', function(done) {
     var documents = [];
-    documentManager.createDocument('Rules and Regulation', 'Operation Manager', 'Mustapha', 'Lawal').then(function() {
-      documentManager.createDocument('Hospitals', 'Welfare', 'Seyi', 'Thompson').then(function() {
+    documentManager.createDocument('Rules and Regulation', 'Operation Manager').then(function() {
+      documentManager.createDocument('Hospitals', 'Welfare').then(function() {
         documentManager.getAllDocuments(1).then(function(result) {
           console.log('docs', result)
           for (var i = 0; i < result.length; i++) {
@@ -193,10 +194,10 @@ describe('Document', function() {
   });
 
   it('should validate that all documents are returned in order of their published dates, starting from the most recent when getAllDocuments is called.', function(done) {
-    documentManager.createDocument('Newsletter 1', 'FELLOW 1', 'Toyosi', 'Famakinde').then(function() {
-      documentManager.createDocument('Newsletter 2', 'FELLOW 1', 'toba', 'lawrence').then(function() {
-        documentManager.createDocument('Newsletter 3', 'FELLOW 3', 'tunde', 'mustapha').then(function() {
-          documentManager.createDocument('Newsletter 4', 'FELLOW 4', 'lara', 'keni').then(function() {
+    documentManager.createDocument('Newsletter 1', 'FELLOW 1').then(function() {
+      documentManager.createDocument('Newsletter 2', 'FELLOW 1').then(function() {
+        documentManager.createDocument('Newsletter 3', 'FELLOW 3').then(function() {
+          documentManager.createDocument('Newsletter 4', 'FELLOW 4').then(function() {
             documentManager.getAllDocuments(4).then(function(documents) {
               expect(documents[0].createdAt).toBeGreaterThan(documents[1].createdAt);
               expect(documents[2].createdAt).toBeGreaterThan(documents[3].createdAt);
@@ -216,9 +217,9 @@ describe('Search', function() {
     model.documents.destroy({
       where: {}
     }).then(function() {
-      documentManager.createDocument('Manual', 'Security', 'rufus', 'landa').then(function() {
-        documentManager.createDocument('Letters', 'Security', 'herbert', 'macaulay').then(function() {
-          documentManager.createDocument('Attendance', 'Class-captain', 'bose', 'oladipo').then(function(result) {
+      documentManager.createDocument('Manual', 'Security').then(function() {
+        documentManager.createDocument('Letters', 'Security').then(function() {
+          documentManager.createDocument('Attendance', 'Class-captain').then(function(result) {
             done();
           });
         });
@@ -233,11 +234,7 @@ describe('Search', function() {
       model.roles.destroy({
         where: {}
       }).then(function() {
-        model.users.destroy({
-          where: {}
-        }).then(function() {
-          done();
-        });
+        done();
       });
     });
   });
@@ -257,7 +254,7 @@ describe('Search', function() {
 
   it('validates that all documents, limited by a specified number, that were published on a certain date, are returned when getAllDocumentsByDate is called.', function(done) {
     var documents = [];
-    documentManager.getAllDocumentsByDate('13-9-2015', 3).then(function(result) {
+    documentManager.getAllDocumentsByDate('15-9-2015', 3).then(function(result) {
       for (var i = 0; i < result.length; i++) {
         documents.push(result[i].title)
       }
