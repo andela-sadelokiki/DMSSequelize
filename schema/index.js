@@ -1,5 +1,6 @@
 'use strict';
 
+//database is initialised here
 var fs = require('fs'),
   path = require('path'),
   Sequelize = require('sequelize'),

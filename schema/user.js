@@ -1,5 +1,6 @@
 'use strict'
 
+//Method creates the User model
 module.exports = function(sequelize, DataTypes) {
   var User = sequelize.define('users', {
     firstname: {

@@ -11,6 +11,7 @@ var User = require('./schema').users,
 
 module.exports = {
 
+  //Method finds or creates a role, creates a user and assigns role to user on user creation
   createUser: function(first, last, title) {
     var user, roleName;
     user = {
@@ -33,22 +34,26 @@ module.exports = {
     });
   },
 
+//Methos gets all created users
   getAllUsers: function() {
     return User.findAll();
   },
 
+//Method creates a role
   createRole: function(title) {
     return Role.create({
       title: title
     });
   },
 
+//Methos gets all created roles
   getAllRoles: function() {
     return Role.findAll({
       where: {}
     });
   },
 
+//Method finds or creates a role, creates a document, and assigns role to document on document creation
   createDocument: function(title, role) {
     var dateCreated = new Date();
     var currentDate = dateCreated.getDate();
@@ -69,6 +74,7 @@ module.exports = {
     });
   },
 
+//Method gets all created documents
   getAllDocuments: function(limit) {
     return Document.findAll({
       limit: limit,
@@ -76,6 +82,7 @@ module.exports = {
     });
   },
 
+//Method gets all documents based on roles that can access the document
   getAllDocumentsByRole: function(role, limit) {
     return Document.findAll({
       where: {
@@ -86,6 +93,7 @@ module.exports = {
     });
   },
 
+//Method gets all documents based on date published
   getAllDocumentsByDate: function(date, limit) {
     return Document.findAll({
       where: {

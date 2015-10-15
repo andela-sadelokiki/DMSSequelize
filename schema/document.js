@@ -1,5 +1,6 @@
 'use strict';
 
+//Method creates the Document model
 module.exports = function(sequelize, DataTypes) {
   var Document = sequelize.define('documents', {
     title: {
