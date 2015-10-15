@@ -49,7 +49,7 @@ module.exports = {
     });
   },
 
-  createDocument: function(title, role, userFirstName, userLastName) {
+  createDocument: function(title, role) {
     var dateCreated = new Date();
     var currentDate = dateCreated.getDate();
     var currentMonth = dateCreated.getMonth();
@@ -60,14 +60,6 @@ module.exports = {
       where: {
         title: role
       }
-    }).then(function() {
-      User.findOrCreate({
-        where: {
-          firstname: userFirstName,
-          lastname: userLastName,
-          UserRole: role
-        }
-      });
     }).then(function() {
       Document.create({
         title: title,
