@@ -2,6 +2,11 @@
 
 var model = require('./schema');
 var documentManager = require('./documentManager.js');
+var dateCreated = new Date();
+var currentDate = dateCreated.getDate();
+var currentMonth = dateCreated.getMonth();
+var currentYear = dateCreated.getFullYear();
+var publishedOn = currentDate + '-' + currentMonth + '-' + currentYear;
 
 describe('User', function() {
   var roleName;
@@ -172,7 +177,7 @@ describe('Document', function() {
     }).then(function(result) {
       console.log('i found it!', result);
       expect(result.dataValues.createdOn).toBeDefined();
-      expect(result.dataValues.createdOn).toBe('15-9-2015');
+      expect(result.dataValues.createdOn).toBe(publishedOn);
       done();
     });
   });
@@ -254,7 +259,7 @@ describe('Search', function() {
 
   it('validates that all documents, limited by a specified number, that were published on a certain date, are returned when getAllDocumentsByDate is called.', function(done) {
     var documents = [];
-    documentManager.getAllDocumentsByDate('15-9-2015', 3).then(function(result) {
+    documentManager.getAllDocumentsByDate(publishedOn, 3).then(function(result) {
       for (var i = 0; i < result.length; i++) {
         documents.push(result[i].title)
       }
